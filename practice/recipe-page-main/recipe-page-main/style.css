@@ -1,0 +1,130 @@
+:root{
+  --fw-serif: 400;
+  --fw-outfit-bold:700;
+  --fw-outfit-semi-bold:600;
+  --fw-outfit-regular:400;
+  --ff-outfit: "Outfit", serif;
+  --ff-serif:"Young Serif", serif;
+
+  --fs-regular: 16px;
+
+  --clr-white:white;
+  --clr-stone100:hsl(30, 54%, 90%);
+  --clr-stone150:hsl(30, 18%, 87%);
+  --clr-stone600:hsl(30, 10%, 34%);
+  --clr-stone900:hsl(24, 5%, 18%);
+
+  --clr-brown:hsl(14, 45%, 36%);
+  --clr-rose800:hsl(332, 51%, 32%);
+  --clr-rose50:hsl(330, 100%, 98%);
+
+}
+
+*,
+*::after,
+*::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  font-size:var(--fs-regular);
+  line-height:2;
+}
+
+body{
+  font-family:var(--ff-outfit);
+  background-color: var(--clr-stone150);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border:2px solid red;
+  padding:20px;
+  min-height:100vh;
+  
+  background-color:var(--clr-stone150);
+}
+
+.container{
+  background-color: var(--clr-white);
+  max-width:700px;
+  border-radius:12px;
+  padding:25px;
+  border:2px solid green;
+
+}
+.inside-container{
+  
+  border:2px solid blue;
+}
+
+.container img{
+  width:100%;
+  border-radius:12px;
+  
+}
+.container h1{
+  font-family:var(--ff-serif);
+}
+.container p{
+  color:var(--clr-stone600);
+  line-height: 1.5;
+}
+ul, ol {
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left: 20px; 
+  margin-left: 0; 
+  color:var(--clr-brown); 
+}
+ul li::marker{
+  color:var(--clr-brown);
+}
+.purple-box > ul li::marker{
+  color:var(--clr-rose800);
+}
+ol li::marker{
+  color:var(--clr-brown);
+  font-weight:var(--fw-outfit-bold)
+}
+
+li {
+  padding:4px;
+  color:var(--clr-stone600);
+  padding-left: 20px;
+  
+}
+.purple-box{
+  border-radius: 12px;
+  background-color: var(--clr-rose50);
+  margin-block:1.5rem;
+  padding:25px;
+}
+.bottom-border{
+  border:0.1px solid var(--clr-stone150);
+  margin-block:10px;
+  
+}
+.purple-box h3{
+  color:var(--clr-rose800);
+}
+.bold{
+  font-weight:var(--fw-outfit-bold);
+}
+.ingredients h2,.instructions h2, .nutrition h2{
+  font-family:var(--ff-serif);
+  color:var(--clr-brown);
+  padding-top: 10px;
+}
+
+.table{
+  border:2px red solid;
+   
+}
+.row{
+  border: 2px green solid;
+  
+}
+  
+
