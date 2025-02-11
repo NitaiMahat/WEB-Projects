@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Clicker Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .game-container {
+            text-align: center;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .coin-button {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: gold;
+            border: 5px solid #daa520;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .coin-button:active {
+            transform: scale(0.95);
+        }
+
+        .stats {
+            margin: 20px 0;
+        }
+
+        // ... existing code ...
+        .upgrades {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .upgrade-button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upgrade-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Coin Clicker</h1>
+        <div class="stats">
+            <h2>Coins: <span id="coin-count">0</span></h2>
+            <h3>Coins per Click: <span id="coins-per-click">1</span></h3>
+            <h3>Coins per Second: <span id="coins-per-second">0</span></h3>
+        </div>
+        <button class="coin-button" onclick="clickCoin()">
+            <img id="coin-image" src="https://cdn-icons-png.flaticon.com/512/217/217853.png" width="100" height="100" alt="coin">
+        </button>
+        <div class="upgrades">
+            <h2>Upgrades</h2>
+            <button class="upgrade-button" onclick="upgradeClick()" id="clickUpgrade">
+                Upgrade Click (Cost: 10 coins)
+            </button>
+            <button class="upgrade-button" onclick="upgradeIdle()" id="idleUpgrade">
+                Idle Generator (Cost: 25 coins)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let coins = 0;
+        let coinsPerClick = 1;
+        let clickUpgradeCost = 10;
+        let clickUpgradeCount = 0;
+        let coinsPerSecond = 0;
+        let idleUpgradeCost = 25;
+
+        const coinImages = [
+            "https://cdn-icons-png.flaticon.com/512/217/217853.png",
+            "https://cdn-icons-png.flaticon.com/512/217/217854.png",
+            "https://cdn-icons-png.flaticon.com/512/217/217855.png",
+            "https://cdn-icons-png.flaticon.com/512/217/217856.png",
+            "https://cdn-icons-png.flaticon.com/512/217/217857.png"
+        ];
+
+        function clickCoin() {
+            coins += coinsPerClick;
+            updateDisplay();
+        }
+
+        function upgradeClick() {
+            if (coins >= clickUpgradeCost) {
+                coins -= clickUpgradeCost;
+                coinsPerClick++;
+                clickUpgradeCost = Math.floor(clickUpgradeCost * 1.5);
+                clickUpgradeCount++;
+                
+                // Change coin image every 10 upgrades
+                if (clickUpgradeCount % 10 === 0) {
+                    const imageIndex = Math.min(Math.floor(clickUpgradeCount / 10), coinImages.length - 1);
+                    document.getElementById('coin-image').src = coinImages[imageIndex];
+                }
+                
+                updateDisplay();
+                document.getElementById('clickUpgrade').textContent = 
+                    `Upgrade Click (Cost: ${clickUpgradeCost} coins)`;
+            }
+        }
+
+        function upgradeIdle() {
+            if (coins >= idleUpgradeCost) {
+                coins -= idleUpgradeCost;
+                coinsPerSecond++;
+                idleUpgradeCost = Math.floor(idleUpgradeCost * 1.5);
+                updateDisplay();
+                document.getElementById('idleUpgrade').textContent = 
+                    `Idle Generator (Cost: ${idleUpgradeCost} coins)`;
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('coin-count').textContent = coins;
+            document.getElementById('coins-per-click').textContent = coinsPerClick;
+            document.getElementById('coins-per-second').textContent = coinsPerSecond;
+            document.getElementById('clickUpgrade').disabled = coins < clickUpgradeCost;
+            document.getElementById('idleUpgrade').disabled = coins < idleUpgradeCost;
+        }
+
+        // Add idle coin generation
+        setInterval(() => {
+            coins += coinsPerSecond;
+            updateDisplay();
+        }, 1000);
+    </script>
+</body>
+</html>
